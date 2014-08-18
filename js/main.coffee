@@ -8,7 +8,7 @@ $ ->
 
     $.stellar();
 
-    
+
     $('.mylm').hover (->
         $(this).addClass("mylm-active") 
     ), ->
@@ -18,54 +18,69 @@ $ ->
     $('.mylm').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', (e) ->
         $(this).addClass('an-updown')
 
-    $window = $(window)
-    isTop = 0;
 
-    toTop = (ele) ->
-        ele.removeClass('mylm-in').addClass('mylm-top')
-        $('.mylm-arr').fadeIn(500)
-        #BV.getPlayer().pause();
-    toMid = (ele) ->
-        ele.removeClass('mylm-top')
-        $('.mylm-arr').fadeOut(100)
-        #BV.getPlayer().play();
+    do ->
+        $window = $(window)
+        isTop = 0;
+        isFix = 0;
+
+        toTop = (ele) ->
+            ele.removeClass('mylm-in').addClass('mylm-top')
+            $('.mylm-arr').fadeIn(500)
+            #BV.getPlayer().pause();
+        toMid = (ele) ->
+            ele.removeClass('mylm-top')
+            $('.mylm-arr').fadeOut(100)
+            #BV.getPlayer().play();
 
 
-    b = $('.head-container')
-    checkScrollPostioin = ->
-        distance = $window.scrollTop()
-        if 80 <= distance && !isTop
-            isTop = !isTop
-            $('.f-nav').removeClass('f-nav-bg')
-            toTop $('.mylm')
-            b.css(
-                "-webkit-transform":"scale(0)"
-                "transform":"scale(0)"
-            )
+        b = $('.head-container')
+        $silder = $('.left-bar')
+        silderOriginalH = $silder.offset().top
 
-        if 80 > distance && isTop
-            isTop = !isTop
-            $('.f-nav').addClass('f-nav-bg')
-            b.css(
-                    "-webkit-transform":"scale(1)"
-                    "transform":"scale(1)"
+        checkScrollPostioin = ->
+            distance = $window.scrollTop()+50
+            silderH = $silder.offset().top
+
+            if silderH <= distance && !isFix
+                $silder.addClass('fixTop')
+                isFix = !isFix
+
+            if silderOriginalH > distance && isFix
+                $silder.removeClass('fixTop')
+                isFix = !isFix
+
+            if 80 <= distance && !isTop
+                isTop = !isTop
+                $('.f-nav').removeClass('f-nav-bg')
+                toTop $('.mylm')
+                b.css(
+                    "-webkit-transform":"scale(0)"
+                    "transform":"scale(0)"
                 )
-            
-            setTimeout (->
-                toMid $('.mylm')
-            ),100
-            
-                
-    timer = 0
-    $window.scroll(->
-        unless timer
-            timer = setTimeout(->
-                checkScrollPostioin()
-                timer = 0
-            , 250)
-    ).scroll()
 
-    scrolldelay = 0
+            if 80 > distance && isTop
+                isTop = !isTop
+                $('.f-nav').addClass('f-nav-bg')
+                b.css(
+                        "-webkit-transform":"scale(1)"
+                        "transform":"scale(1)"
+                    )
+                
+                setTimeout (->
+                    toMid $('.mylm')
+                ),100
+                
+        timer = 0
+        $window.scroll(->
+            unless timer
+                timer = setTimeout(->
+                    checkScrollPostioin()
+                    timer = 0
+                , 0)
+        ).scroll()
+
+
     pageScroll = ->
         if $(window).scrollTop() <= 0
             clearTimeout(scrolldelay);
