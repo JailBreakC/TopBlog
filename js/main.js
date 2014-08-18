@@ -1,12 +1,13 @@
 (function() {
   $(function() {
-    var $window, BV, b, checkScrollPostioin, isTop, timer, toMid, toTop;
+    var $window, BV, b, checkScrollPostioin, isTop, pageScroll, scrolldelay, timer, toMid, toTop;
     BV = new $.BigVideo({
       doLoop: true,
       container: $('.head')
     });
     BV.init();
     BV.show('videos/exponent.mp4');
+    $.stellar();
     $('.mylm').hover((function() {
       return $(this).addClass("mylm-active");
     }), function() {
@@ -33,27 +34,25 @@
         isTop = !isTop;
         $('.f-nav').removeClass('f-nav-bg');
         toTop($('.mylm'));
-        setTimeout((function() {
-          return b.css({
-            "-webkit-transform": "scale(0)",
-            "transform": "scale(0)"
-          });
-        }), 200);
+        b.css({
+          "-webkit-transform": "scale(0)",
+          "transform": "scale(0)"
+        });
       }
       if (80 > distance && isTop) {
         isTop = !isTop;
         $('.f-nav').addClass('f-nav-bg');
-        toMid($('.mylm'));
+        b.css({
+          "-webkit-transform": "scale(1)",
+          "transform": "scale(1)"
+        });
         return setTimeout((function() {
-          return b.css({
-            "-webkit-transform": "scale(1)",
-            "transform": "scale(1)"
-          });
-        }), 200);
+          return toMid($('.mylm'));
+        }), 100);
       }
     };
     timer = 0;
-    return $window.scroll(function() {
+    $window.scroll(function() {
       if (!timer) {
         return timer = setTimeout(function() {
           checkScrollPostioin();
@@ -61,6 +60,18 @@
         }, 250);
       }
     }).scroll();
+    scrolldelay = 0;
+    pageScroll = function() {
+      if ($(window).scrollTop() <= 0) {
+        return clearTimeout(scrolldelay);
+      } else {
+        window.scrollBy(0, -100);
+        return scrolldelay = setTimeout(pageScroll, 10);
+      }
+    };
+    return $('.mylm').click(function() {
+      return pageScroll();
+    });
   });
 
 }).call(this);

@@ -5,6 +5,10 @@ $ ->
         })
     BV.init()
     BV.show('videos/exponent.mp4')
+
+    $.stellar();
+
+    
     $('.mylm').hover (->
         $(this).addClass("mylm-active") 
     ), ->
@@ -34,23 +38,22 @@ $ ->
             isTop = !isTop
             $('.f-nav').removeClass('f-nav-bg')
             toTop $('.mylm')
-            setTimeout (->
-                b.css(
-                    "-webkit-transform":"scale(0)"
-                    "transform":"scale(0)"
-                )
-            ),200
+            b.css(
+                "-webkit-transform":"scale(0)"
+                "transform":"scale(0)"
+            )
 
         if 80 > distance && isTop
             isTop = !isTop
             $('.f-nav').addClass('f-nav-bg')
-            toMid $('.mylm')
-            setTimeout (->
-                b.css(
+            b.css(
                     "-webkit-transform":"scale(1)"
                     "transform":"scale(1)"
                 )
-            ),200
+            
+            setTimeout (->
+                toMid $('.mylm')
+            ),100
             
                 
     timer = 0
@@ -61,3 +64,14 @@ $ ->
                 timer = 0
             , 250)
     ).scroll()
+
+    scrolldelay = 0
+    pageScroll = ->
+        if $(window).scrollTop() <= 0
+            clearTimeout(scrolldelay);
+        else
+            window.scrollBy(0,-100); 
+            scrolldelay = setTimeout(pageScroll,10)
+
+    $('.mylm').click ->
+        pageScroll()
