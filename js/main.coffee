@@ -18,20 +18,36 @@ $ ->
     $('.mylm').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', (e) ->
         $(this).addClass('an-updown')
 
+    $('.silder-list>li').each ->
+        
+        $(this).hover (->
+            index = $(this).position().top;
+            $('.float-light').css(
+                "top":index
+                )
+        ), ->
+            
+
+    $('.silder-list').hover (->
+        
+    ),->
+        index = $('.silder-list').find('.active').position().top;
+        $('.float-light').css(
+            "top":index
+            )
 
     do ->
         $window = $(window)
         isTop = 0;
         isFix = 0;
-
+        isPlay = 1;
         toTop = (ele) ->
             ele.removeClass('mylm-in').addClass('mylm-top')
             $('.mylm-arr').fadeIn(500)
-            #BV.getPlayer().pause();
         toMid = (ele) ->
             ele.removeClass('mylm-top')
             $('.mylm-arr').fadeOut(100)
-            #BV.getPlayer().play();
+            BV.getPlayer().play();
 
 
         b = $('.head-container')
@@ -39,16 +55,24 @@ $ ->
         silderOriginalH = $silder.offset().top
 
         checkScrollPostioin = ->
-            distance = $window.scrollTop()+50
+            distance = $window.scrollTop()
             silderH = $silder.offset().top
 
-            if silderH <= distance && !isFix
+            if silderH <= distance + 50 && !isFix
                 $silder.addClass('fixTop')
                 isFix = !isFix
 
-            if silderOriginalH > distance && isFix
+            if silderOriginalH > distance + 50 && isFix
                 $silder.removeClass('fixTop')
                 isFix = !isFix
+
+            if distance >= $(window).height() && isPlay
+                isPlay = !isPlay
+                BV.getPlayer().pause();
+
+            if distance < $(window).height() && !isPlay
+                isPlay = !isPlay
+                BV.getPlayer().play();
 
             if 80 <= distance && !isTop
                 isTop = !isTop

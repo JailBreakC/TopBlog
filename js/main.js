@@ -16,33 +16,59 @@
     $('.mylm').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {
       return $(this).addClass('an-updown');
     });
+    $('.silder-list>li').each(function() {
+      return $(this).hover((function() {
+        var index;
+        index = $(this).position().top;
+        return $('.float-light').css({
+          "top": index
+        });
+      }), function() {});
+    });
+    $('.silder-list').hover((function() {}), function() {
+      var index;
+      index = $('.silder-list').find('.active').position().top;
+      return $('.float-light').css({
+        "top": index
+      });
+    });
     (function() {
-      var $silder, $window, b, checkScrollPostioin, isFix, isTop, silderOriginalH, timer, toMid, toTop;
+      var $silder, $window, b, checkScrollPostioin, isFix, isPlay, isTop, silderOriginalH, timer, toMid, toTop;
       $window = $(window);
       isTop = 0;
       isFix = 0;
+      isPlay = 1;
       toTop = function(ele) {
         ele.removeClass('mylm-in').addClass('mylm-top');
         return $('.mylm-arr').fadeIn(500);
       };
       toMid = function(ele) {
         ele.removeClass('mylm-top');
-        return $('.mylm-arr').fadeOut(100);
+        $('.mylm-arr').fadeOut(100);
+        return BV.getPlayer().play();
       };
       b = $('.head-container');
       $silder = $('.left-bar');
       silderOriginalH = $silder.offset().top;
       checkScrollPostioin = function() {
         var distance, silderH;
-        distance = $window.scrollTop() + 50;
+        distance = $window.scrollTop();
         silderH = $silder.offset().top;
-        if (silderH <= distance && !isFix) {
+        if (silderH <= distance + 50 && !isFix) {
           $silder.addClass('fixTop');
           isFix = !isFix;
         }
-        if (silderOriginalH > distance && isFix) {
+        if (silderOriginalH > distance + 50 && isFix) {
           $silder.removeClass('fixTop');
           isFix = !isFix;
+        }
+        if (distance >= $(window).height() && isPlay) {
+          isPlay = !isPlay;
+          BV.getPlayer().pause();
+        }
+        if (distance < $(window).height() && !isPlay) {
+          isPlay = !isPlay;
+          BV.getPlayer().play();
         }
         if (80 <= distance && !isTop) {
           isTop = !isTop;
