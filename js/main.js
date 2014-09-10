@@ -16,24 +16,33 @@
     $('.mylm').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {
       return $(this).addClass('an-updown');
     });
-    $('.silder-list>li').each(function() {
-      return $(this).hover((function() {
-        var index;
-        index = $(this).position().top;
-        return $('.float-light').css({
-          "top": index
-        });
-      }), function() {});
+    $('.silder-list').on('click', 'a', function() {
+      var $thisA;
+      $thisA = $(this);
+      $('.silder-list li').removeClass('active');
+      return $thisA.parent().addClass('active');
+    });
+    $('.silder-list').on('mouseenter', 'li', function() {
+      var index;
+      index = $(this).position().top;
+      return $('.float-light').css({
+        "top": index
+      });
     });
     $('.silder-list').hover((function() {}), function() {
-      var index;
-      index = $('.silder-list').find('.active').position().top;
+      var activeEle, index;
+      activeEle = $('.silder-list').find('.active');
+      if (activeEle) {
+        index = activeEle.position().top;
+      } else {
+        index = 0;
+      }
       return $('.float-light').css({
         "top": index
       });
     });
     (function() {
-      var $silder, $window, b, checkScrollPostioin, isFix, isPlay, isTop, silderOriginalH, timer, toMid, toTop;
+      var $footer, $silder, $window, b, checkScrollPostioin, isFix, isPlay, isTop, silderOriginalH, timer, toMid, toTop;
       $window = $(window);
       isTop = 0;
       isFix = 0;
@@ -44,23 +53,30 @@
       };
       toMid = function(ele) {
         ele.removeClass('mylm-top');
-        $('.mylm-arr').fadeOut(100);
-        return BV.getPlayer().play();
+        return $('.mylm-arr').fadeOut(100);
       };
       b = $('.head-container');
       $silder = $('.left-bar');
       silderOriginalH = $silder.offset().top;
+      $footer = $('.foot-bar');
       checkScrollPostioin = function() {
-        var distance, silderH;
+        var distance, footerH, silderH, silderHeight, silderWidth;
         distance = $window.scrollTop();
         silderH = $silder.offset().top;
-        if (silderH <= distance + 50 && !isFix) {
-          $silder.addClass('fixTop');
-          isFix = !isFix;
-        }
-        if (silderOriginalH > distance + 50 && isFix) {
-          $silder.removeClass('fixTop');
-          isFix = !isFix;
+        silderHeight = $silder.height();
+        footerH = $footer.offset().top;
+        console.log("footH " + footerH + " silderH " + silderH + " silderHeight " + silderHeight);
+        if ($(window).width() >= 768) {
+          if ((silderH <= distance + 50) && (silderHeight <= footerH - distance) && !isFix) {
+            silderWidth = $silder.width();
+            $silder.addClass('fixTop');
+            $silder.width(silderWidth);
+            isFix = !isFix;
+          }
+          if (((silderOriginalH > distance + 50) || (silderHeight > footerH - distance - 50)) && isFix) {
+            $silder.removeClass('fixTop');
+            isFix = !isFix;
+          }
         }
         if (distance >= $(window).height() && isPlay) {
           isPlay = !isPlay;

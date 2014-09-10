@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn" ng-app='myApp'>
+<html lang="zh-cn" ng-app="myblog" ng-controller="indexCtrl">
 
 <head>
   <meta charset="utf-8">
@@ -29,8 +29,8 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav navbar-right">
-	        <li><a class="link-skewed" href="#">Blog 1.0</a></li>
-	        <li><a class="link-skewed" href="#">GitHub</a></li>
+	        <li><a class="" href="http://5.vgee.sinaapp.com">Blog 1.0</a></li>
+	        <li><a class="" href="https://github.com/JailBreakC/TopBlog">GitHub</a></li>
 	        
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
@@ -42,7 +42,7 @@
 	  </div>
 	<div class="head">
 		
-		<div style="margin-top: 400px;"class="head-container">
+		<div style="margin-top: 355px;"class="head-container">
 			
 			<h1><span  class="link-skewed">发现更大的世界</span></h1>
 			<h2><span class="link-skewed">前端工程师——我们不仅是码农，我们更是美的搬运工</span></h2>
@@ -68,109 +68,47 @@
 	</div>
 	<div class="main">
 		
-		<div style="margin-top:200px"class="container">
+		<div style="margin-top:150px"class="container">
 			<div class="row">
 				<div class="col-sm-4">
 					<div class="left-bar">
-						<div class="left-bar-top">
-							<h1>我的博客</h1>
-							<h3>my blog</h3>
-						</div>
+							<div class="left-bar-top">
+							<a href="#">
+								<h1>我的博客</h1>
+								<h3>my blog</h3>
+							</a>
+							</div>
 						<ul class="silder-list">
-							<li class="active">JavaScript</li>
-							<li>HTML&amp;CSS</li>
-							<li>Python</li>
-							<li>科技</li>
-							<li>杂文</li>
+							<a href="#">
+								<li class="active">
+									全部分类
+								</li>
+							</a>
+							<a ng-repeat="post in blogList" ng-href="#/type/{{post.type}}">
+								<li>
+										{{post.type}}
+								</li>
+							</a>
 							<div class="float-light">
 							</div>
 						</ul>
 					</div>
 				</div>
-				<div class="main-bar col-sm-8">
-					<div class="md">
-						<div class="date">
-							<p class="month">8月</p>
-							<p class="day">20</p>
-						</div>
-						<div class="md-context">
-							<h1>日志</h1>
-							<div class="shot-text">
-							<p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
-							<p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
-							<p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
-							<p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
-							
-							</div>
-						</div>
-						<div class="md-foot">
-							<button class="pull-right btn btn-danger">阅读全文</button>
-						</div>
-					</div>
-					<div class="md">
-						<div class="date">
-							<p class="month">8月</p>
-							<p class="day">20</p>
-						</div>
-						<div class="md-context">
-							<h1>日志</h1>
-							<div class="shot-text">
-							<p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
-							<p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
-							<p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
-							<p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
-							
-							</div>
-						</div>
-						<div class="md-foot">
-							<button class="pull-right btn btn-danger">阅读全文</button>
-						</div>
-					</div>
-					<div class="md">
-						<div class="date">
-							<p class="month">8月</p>
-							<p class="day">20</p>
-						</div>
-						<div class="md-context">
-							<h1>日志</h1>
-							<div class="shot-text">
-							<p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
-							<p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
-							<p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
-							<p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
-							
-							</div>
-						</div>
-						<div class="md-foot">
-							<button class="pull-right btn btn-danger">阅读全文</button>
-						</div>
-					</div>
-					<div class="md">
-						<div class="date">
-							<p class="month">8月</p>
-							<p class="day">20</p>
-						</div>
-						<div class="md-context">
-							<h1>日志</h1>
-							<div class="shot-text">
-							<p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
-							<p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
-							<p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
-							<p>正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文</p>
-							
-							</div>
-						</div>
-						<div class="md-foot">
-							<button class="pull-right btn btn-danger">阅读全文</button>
-						</div>
-					</div>
+				<div ng-view class="col-sm-8">
 				</div>
 			</div>
 
 		</div>
-		
+		<div class="foot-bar">
+			<h1>-</h1>
+			<h1>-</h1>
+			<h1>-</h1>
+			<h1>foot-bar is building</h1>
+			<h1>-</h1>
+			<h1>-</h1>
+			<h1>-</h1>
+		</div>		
 	</div>
-
 
 
 
@@ -178,10 +116,16 @@
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="js/underscore.js"></script>
+	<script src="http://hihiblog.qiniudn.com/bower_components/underscore.string/dist/underscore.string.min.js"></script>
 	<script type="text/javascript" src="js/video.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/bigvideo.js"></script>
 	<script type="text/javascript" src="js/jquery.stellar.min.js"></script>
+	<script type="text/javascript" src="js/angular.js"></script>
+	<script src="http://hihiblog.qiniudn.com/bower_components/angular-route/angular-route.min.js"></script>
+	<script src="http://hihiblog.qiniudn.com/bower_components/angular-animate/angular-animate.min.js"></script>
+	<script type="text/javascript" src="js/markdown.js"></script>
+	<script type="text/javascript" src="js/controller.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 <!-- script 专用沙发 -->
 
