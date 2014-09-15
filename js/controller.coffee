@@ -27,13 +27,13 @@ myblogApp.config ($routeProvider, $locationProvider) ->
 myblogApp.filter 'blogListType', ->
     blogListType = (date,array) ->
         type = array.type
-        console.log type
+        ##console.log type
         if type
             output = {}
             for i in date
                 if i.type is type
                     output[_i] = i
-            console.log output
+            ##console.log output
             return output
         return date
 
@@ -51,14 +51,14 @@ parseTitle = (data) ->
         value = _.str.trim value
         if r.hasOwnProperty(key) then r[key]=value
     r.date = r.url.split('-')
-    r.date.month = parseInt(r.date[1])
-    r.date.day =  parseInt(r.date[2])
-    console.log r.time
+    r.date.month = parseInt(r.date[1],10)
+    r.date.day =  parseInt(r.date[2],10)
+    ##console.log r.time
     return r
 
 parseList = (data) ->
-    console.log data
-    console.log data.split(/\n[\-=]+/)
+    #console.log data
+    #console.log data.split(/\n[\-=]+/)
     _.map data.split(/\n[\-=]+/),parseTitle
 
 listCtrl = ($scope,$http) ->
@@ -92,9 +92,11 @@ indexCtrl = ($scope,$http,$routeParams) ->
     $scope.type = $routeParams
     window.w = $scope
     $http.get("post/list.md").success (data) ->
-        console.log data
+        #console.log data
         $scope.blogList = _.filter(parseList(data),(it)-> it.hide!='true')
-        console.log $scope.blogList
+        #console.log $scope.blogList
+    Scroll2Top = ->
+        window.scrollTo(0,$(window).height()*1.4)
 
 
 indexCtrl.$inject = ['$scope','$http','$routeParams']

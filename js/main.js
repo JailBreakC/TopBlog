@@ -1,12 +1,13 @@
 (function() {
   $(function() {
-    var BV, pageScroll;
+    var BV, pageScroll, videos;
     BV = new $.BigVideo({
       doLoop: true,
       container: $('.head')
     });
     BV.init();
-    BV.show('videos/exponent.mp4');
+    videos = "http://topblog.qiniudn.com/exponent.mp4";
+    BV.show(videos);
     $.stellar();
     $('.mylm').hover((function() {
       return $(this).addClass("mylm-active");
@@ -20,7 +21,8 @@
       var $thisA;
       $thisA = $(this);
       $('.silder-list li').removeClass('active');
-      return $thisA.parent().addClass('active');
+      $thisA.children().addClass('active');
+      return window.scrollTo(0, $(window).height() * 1.4);
     });
     $('.silder-list').on('mouseenter', 'li', function() {
       var index;
@@ -32,7 +34,7 @@
     $('.silder-list').hover((function() {}), function() {
       var activeEle, index;
       activeEle = $('.silder-list').find('.active');
-      if (activeEle) {
+      if (activeEle.length > 0) {
         index = activeEle.position().top;
       } else {
         index = 0;
@@ -65,7 +67,6 @@
         silderH = $silder.offset().top;
         silderHeight = $silder.height();
         footerH = $footer.offset().top;
-        console.log("footH " + footerH + " silderH " + silderH + " silderHeight " + silderHeight);
         if ($(window).width() >= 768) {
           if ((silderH <= distance + 50) && (silderHeight <= footerH - distance) && !isFix) {
             silderWidth = $silder.width();

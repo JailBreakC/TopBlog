@@ -43,7 +43,6 @@
     return blogListType = function(date, array) {
       var i, output, type, _i, _len;
       type = array.type;
-      console.log(type);
       if (type) {
         output = {};
         for (_i = 0, _len = date.length; _i < _len; _i++) {
@@ -52,7 +51,6 @@
             output[_i] = i;
           }
         }
-        console.log(output);
         return output;
       }
       return date;
@@ -80,15 +78,12 @@
       }
     }
     r.date = r.url.split('-');
-    r.date.month = parseInt(r.date[1]);
-    r.date.day = parseInt(r.date[2]);
-    console.log(r.time);
+    r.date.month = parseInt(r.date[1], 10);
+    r.date.day = parseInt(r.date[2], 10);
     return r;
   };
 
   parseList = function(data) {
-    console.log(data);
-    console.log(data.split(/\n[\-=]+/));
     return _.map(data.split(/\n[\-=]+/), parseTitle);
   };
 
@@ -131,15 +126,17 @@
   postCtrl.$inject = ['$scope', '$http', '$routeParams'];
 
   indexCtrl = function($scope, $http, $routeParams) {
+    var Scroll2Top;
     $scope.type = $routeParams;
     window.w = $scope;
-    return $http.get("post/list.md").success(function(data) {
-      console.log(data);
-      $scope.blogList = _.filter(parseList(data), function(it) {
+    $http.get("post/list.md").success(function(data) {
+      return $scope.blogList = _.filter(parseList(data), function(it) {
         return it.hide !== 'true';
       });
-      return console.log($scope.blogList);
     });
+    return Scroll2Top = function() {
+      return window.scrollTo(0, $(window).height() * 1.4);
+    };
   };
 
   indexCtrl.$inject = ['$scope', '$http', '$routeParams'];

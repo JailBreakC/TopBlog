@@ -5,7 +5,9 @@ $ ->
         container:$('.head')
     })
     BV.init()
-    BV.show('videos/exponent.mp4')
+    videos = "http://topblog.qiniudn.com/exponent.mp4"
+    #videos = "videos/exponent.mp4"
+    BV.show(videos)
     #stellar.js 视差滚动插件
     $.stellar();
     #头像悬浮模糊效果
@@ -21,7 +23,8 @@ $ ->
     $('.silder-list').on 'click','a', ->
         $thisA = $(this);
         $('.silder-list li').removeClass('active')
-        $thisA.parent().addClass('active');
+        $thisA.children().addClass('active');
+        window.scrollTo(0,$(window).height()*1.4)
     #鼠标进入侧边栏时的高亮跟随效果
     $('.silder-list').on 'mouseenter','li', ->
         index = $(this).position().top;
@@ -35,7 +38,7 @@ $ ->
         #do nothing
     ),->
         activeEle = $('.silder-list').find('.active')
-        if( activeEle )
+        if( activeEle.length > 0 )
             index = activeEle.position().top;
         else
             index = 0
@@ -67,7 +70,7 @@ $ ->
             silderH = $silder.offset().top
             silderHeight = $silder.height()
             footerH = $footer.offset().top
-            console.log("footH "+footerH+" silderH "+silderH+" silderHeight "+silderHeight)
+            #console.log("footH "+footerH+" silderH "+silderH+" silderHeight "+silderHeight)
             #侧边栏
             if $(window).width() >= 768
                 if (silderH <= distance + 50) && (silderHeight <= footerH - distance) && !isFix
