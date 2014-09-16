@@ -7,6 +7,7 @@
     });
     BV.init();
     videos = "http://topblog.qiniudn.com/exponent.mp4";
+    videos = "videos/exponent.mp4";
     BV.show(videos);
     $.stellar();
     $('.mylm').hover((function() {

@@ -118,9 +118,24 @@
 
   postCtrl = function($scope, $http, $routeParams) {
     $scope.name = $routeParams.name;
-    return $http.get('post/' + $scope.name).success(function(data) {
-      return $scope.post = parsePost(data);
+    $http.get('post/' + $scope.name).success(function(data) {
+      $scope.post = parsePost(data);
+      return toggleDuoshuoComments('.blog-container');
     });
+    console.log($scope);
+    return 
+    function toggleDuoshuoComments(container){
+        var el = document.createElement('div');//该div不需要设置class="ds-thread"
+        el.setAttribute('id', $scope.name);//必选参数
+        el.setAttribute('data-thread-key', $scope.post.title);//必选参数
+        el.setAttribute('data-url', $scope.name);//必选参数
+        //el.setAttribute('data-author-key', '作者的本地用户ID');//可选参数
+        console.log(el)
+        DUOSHUO.EmbedThread(el);
+        console.log(el)
+        jQuery(container).append(el); 
+        
+    };
   };
 
   postCtrl.$inject = ['$scope', '$http', '$routeParams'];
