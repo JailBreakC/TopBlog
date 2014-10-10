@@ -1,15 +1,20 @@
 (function() {
   $(function() {
-    var BV, pageScroll, videos;
-    BV = new $.BigVideo({
-      doLoop: true,
-      container: $('.head')
-    });
-    BV.init();
-    videos = "http://topblog.qiniudn.com/exponent.mp4";
-    videos = "videos/exponent.mp4";
-    BV.show(videos);
-    $.stellar();
+    var BV, ScrollController, pageScroll, positionSetter;
+    BV = false;
+    if ($(window).width() > 768) {
+      setTimeout((function() {
+        var videos;
+        BV = new $.BigVideo({
+          doLoop: true,
+          container: $('.head')
+        });
+        BV.init();
+        videos = "http://topblog.qiniudn.com/exponent.mp4";
+        return BV.show(videos);
+      }), 1000);
+      $.stellar();
+    }
     $('.mylm').hover((function() {
       return $(this).addClass("mylm-active");
     }), function() {
@@ -44,9 +49,16 @@
         "top": index
       });
     });
-    (function() {
-      var $footer, $silder, $window, b, checkScrollPostioin, isFix, isPlay, isTop, silderOriginalH, timer, toMid, toTop;
+    $('.QQ').click(function() {
+      return $(this).html('610164407').wrap('<a href="tencent://message/?uin=610164407&Menu=yes"></a>');
+    });
+    ScrollController = function() {
+      var $footer, $silder, $window, b, fixSilder, getbigAvatar, getsmallAvatar, isFix, isPlay, isTop, playBV, silderOriginalH, stopBV, toMid, toTop, unfixSilder;
       $window = $(window);
+      b = $('.head-container');
+      silderOriginalH = $('.left-bar').offset().top;
+      $footer = $('.foot-bar');
+      $silder = $('.left-bar');
       isTop = 0;
       isFix = 0;
       isPlay = 1;
@@ -58,62 +70,83 @@
         ele.removeClass('mylm-top');
         return $('.mylm-arr').fadeOut(100);
       };
-      b = $('.head-container');
-      $silder = $('.left-bar');
-      silderOriginalH = $silder.offset().top;
-      $footer = $('.foot-bar');
-      checkScrollPostioin = function() {
-        var distance, footerH, silderH, silderHeight, silderWidth;
-        distance = $window.scrollTop();
+      fixSilder = function() {
+        var silderWidth;
+        silderWidth = $silder.width();
+        $silder.addClass('fixTop');
+        $silder.width(silderWidth);
+        return isFix = !isFix;
+      };
+      unfixSilder = function() {
+        $silder.removeClass('fixTop');
+        return isFix = !isFix;
+      };
+      playBV = function() {
+        isPlay = !isPlay;
+        return BV.getPlayer().pause();
+      };
+      stopBV = function() {
+        isPlay = !isPlay;
+        return BV.getPlayer().play();
+      };
+      getbigAvatar = function() {
+        isTop = !isTop;
+        $('.f-nav').removeClass('f-nav-bg');
+        toTop($('.mylm'));
+        return b.css({
+          "-webkit-transform": "scale(0)",
+          "transform": "scale(0)"
+        });
+      };
+      getsmallAvatar = function() {
+        isTop = !isTop;
+        $('.f-nav').addClass('f-nav-bg');
+        b.css({
+          "-webkit-transform": "scale(1)",
+          "transform": "scale(1)"
+        });
+        return setTimeout((function() {
+          return toMid($('.mylm'));
+        }), 100);
+      };
+      return function() {
+        var distance, footerH, silderH, silderHeight;
+        distance = $(window).scrollTop();
         silderH = $silder.offset().top;
         silderHeight = $silder.height();
         footerH = $footer.offset().top;
         if ($(window).width() >= 768) {
           if ((silderH <= distance + 50) && (silderHeight <= footerH - distance) && !isFix) {
-            silderWidth = $silder.width();
-            $silder.addClass('fixTop');
-            $silder.width(silderWidth);
-            isFix = !isFix;
+            fixSilder();
           }
           if (((silderOriginalH > distance + 50) || (silderHeight > footerH - distance - 50)) && isFix) {
-            $silder.removeClass('fixTop');
-            isFix = !isFix;
+            unfixSilder();
           }
         }
-        if (distance >= $(window).height() && isPlay) {
-          isPlay = !isPlay;
-          BV.getPlayer().pause();
-        }
-        if (distance < $(window).height() && !isPlay) {
-          isPlay = !isPlay;
-          BV.getPlayer().play();
+        if (BV) {
+          if (distance >= $(window).height() && isPlay) {
+            playBV();
+          }
+          if (distance < $(window).height() && !isPlay) {
+            stopBV();
+          }
         }
         if (80 <= distance && !isTop) {
-          isTop = !isTop;
-          $('.f-nav').removeClass('f-nav-bg');
-          toTop($('.mylm'));
-          b.css({
-            "-webkit-transform": "scale(0)",
-            "transform": "scale(0)"
-          });
+          getbigAvatar();
         }
         if (80 > distance && isTop) {
-          isTop = !isTop;
-          $('.f-nav').addClass('f-nav-bg');
-          b.css({
-            "-webkit-transform": "scale(1)",
-            "transform": "scale(1)"
-          });
-          return setTimeout((function() {
-            return toMid($('.mylm'));
-          }), 100);
+          return getsmallAvatar();
         }
       };
+    };
+    positionSetter = new ScrollController();
+    (function() {
+      var timer;
       timer = 0;
-      return $window.scroll(function() {
+      return $(window).scroll(function() {
         if (!timer) {
           return timer = setTimeout(function() {
-            checkScrollPostioin();
+            positionSetter();
             return timer = 0;
           }, 0);
         }

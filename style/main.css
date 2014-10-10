@@ -12,7 +12,6 @@
 }
 body {
   font-family: '微软雅黑' !important;
-  cursor: url(../images/cursor.ico), auto;
 }
 .f-nav {
   opacity: 1;
@@ -47,6 +46,7 @@ body {
   top: 0;
   background-color: black;
   overflow: hidden;
+  background: url(../images/bk.jpg) 100%;
 }
 .head-container {
   margin-top: 330px;
@@ -156,7 +156,7 @@ body {
   position: absolute;
   top: 140%;
   width: 100%;
-  background: rgba(218, 221, 221, 0.95);
+  background: rgba(218, 221, 221, 0.5);
 }
 .mylm-top {
   width: 55px;
@@ -337,6 +337,9 @@ body {
   border-radius: 10px;
   padding: 25px;
 }
+.blog-container img {
+  max-width: 100%;
+}
 .blog-text {
   margin-bottom: 50px;
 }
@@ -345,5 +348,15 @@ body {
   background: black;
   color: white;
   margin-top: 80px;
-  padding: 20px;
+  padding: 80px;
+}
+.weibo {
+  color: white;
+}
+.QQ {
+  cursor: pointer;
+  color: white;
+}
+.fix-height {
+  min-height: 880px;
 }

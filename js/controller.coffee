@@ -86,7 +86,7 @@ postCtrl = ($scope,$http,$routeParams) ->
     $http.get('post/'+$scope.name).success (data)->
         $scope.post = parsePost(data)
         toggleDuoshuoComments('.blog-container')
-    console.log $scope
+    #console.log $scope
 
     #多说
     `
@@ -96,9 +96,9 @@ postCtrl = ($scope,$http,$routeParams) ->
         el.setAttribute('data-thread-key', $scope.post.title);//必选参数
         el.setAttribute('data-url', $scope.name);//必选参数
         //el.setAttribute('data-author-key', '作者的本地用户ID');//可选参数
-        console.log(el)
+        //console.log(el)
         DUOSHUO.EmbedThread(el);
-        console.log(el)
+        //console.log(el)
         jQuery(container).append(el); 
         
     }`
@@ -112,9 +112,12 @@ indexCtrl = ($scope,$http,$routeParams) ->
     $http.get("post/list.md").success (data) ->
         #console.log data
         $scope.blogList = _.filter(parseList(data),(it)-> it.hide!='true')
-        #console.log $scope.blogList
+        $scope.listType = _.uniq(_.pluck($scope.blogList,'type'))
+        console.log $scope.listType
     Scroll2Top = ->
         window.scrollTo(0,$(window).height()*1.4)
+    $('#fix-height').css('min-height',$(window).height())
+
 
 
 

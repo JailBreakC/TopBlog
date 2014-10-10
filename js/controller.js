@@ -122,7 +122,6 @@
       $scope.post = parsePost(data);
       return toggleDuoshuoComments('.blog-container');
     });
-    console.log($scope);
     return 
     function toggleDuoshuoComments(container){
         var el = document.createElement('div');//该div不需要设置class="ds-thread"
@@ -130,9 +129,9 @@
         el.setAttribute('data-thread-key', $scope.post.title);//必选参数
         el.setAttribute('data-url', $scope.name);//必选参数
         //el.setAttribute('data-author-key', '作者的本地用户ID');//可选参数
-        console.log(el)
+        //console.log(el)
         DUOSHUO.EmbedThread(el);
-        console.log(el)
+        //console.log(el)
         jQuery(container).append(el); 
         
     };
@@ -145,13 +144,16 @@
     $scope.type = $routeParams;
     window.w = $scope;
     $http.get("post/list.md").success(function(data) {
-      return $scope.blogList = _.filter(parseList(data), function(it) {
+      $scope.blogList = _.filter(parseList(data), function(it) {
         return it.hide !== 'true';
       });
+      $scope.listType = _.uniq(_.pluck($scope.blogList, 'type'));
+      return console.log($scope.listType);
     });
-    return Scroll2Top = function() {
+    Scroll2Top = function() {
       return window.scrollTo(0, $(window).height() * 1.4);
     };
+    return $('#fix-height').css('min-height', $(window).height());
   };
 
   indexCtrl.$inject = ['$scope', '$http', '$routeParams'];

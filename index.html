@@ -4,13 +4,16 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="陈加贝的个人博客————发现更大的世界">
+  <meta name="keywords" content="陈加贝,jailbreak,jailbreakc,vgee,vgee.cn,陈加贝jailbreak,javascript,html,css,科技,极客">
   <title>JailBreak的博客</title>
-
+  <link rel="icon" href="images/title-logo.png" type="image/png" sizes="32x32">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="style/bootstrap.min.css">
   <link rel="stylesheet" href="style/main.css">
 </head>
 <body>
+	<span class="sr-only">陈加贝的个人博客————发现更大的世界,欢迎光临我的博客，20岁在校大学生热爱Web，热爱前端，热爱生活</span>
 	<nav style="border-radius:0;"class="f-nav navbar navbar-default navbar-fixed-top f-nav-bg" role="navigation">
 	  <div class="f-nav-ct  container-fluid">
 	    <!-- Brand and toggle get grouped for better mobile display -->
@@ -29,15 +32,15 @@
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav navbar-right">
-	        <li><a class="link-skewed" href="http://5.vgee.sinaapp.com">Blog 1.0</a></li>
-	        <li><a class="link-skewed" href="https://github.com/JailBreakC/TopBlog">GitHub</a></li>
+	        <li><a target="_blank" class="link-skewed" href="http://5.vgee.sinaapp.com">Blog 1.0</a></li>
+	        <li><a target="_blank" class="link-skewed" href="http://weibo.com/jailbreakc">微博</a></li>
 	        
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>
 	<!-- 头像所在处↓-->
-	  <div class="mylm mylm-in">
+	  <div ng-click="pageScroll()" class="mylm mylm-in">
 		<span class="mylm-arr glyphicon glyphicon-chevron-up"></span>
 	  </div>
 	<div class="head">
@@ -79,14 +82,14 @@
 							</a>
 							</div>
 						<ul class="silder-list">
-							<a href="#">
+							<a href="#/">
 								<li class="active">
 									全部分类
 								</li>
 							</a>
-							<a ng-repeat="post in blogList" ng-href="#/type/{{post.type}}">
+							<a ng-repeat="type in listType" ng-href="#/type/{{type}}">
 								<li>
-										{{post.type}}
+										{{type}}
 								</li>
 							</a>
 							<div class="float-light">
@@ -94,19 +97,14 @@
 						</ul>
 					</div>
 				</div>
-				<div ng-view class="col-sm-8 right-bar">
+				<div ng-view class="col-sm-8 right-bar fix-height">
 				</div>
 			</div>
 
 		</div>
 		<div class="foot-bar">
-			<h1>-</h1>
-			<h1>-</h1>
-			<h1>-</h1>
-			<h1>foot-bar is building</h1>
-			<h1>-</h1>
-			<h1>-</h1>
-			<h1>-</h1>
+			<h5>简约不是简单的删繁就简，而是在纷繁中建立秩序</h5>
+			<p><span class="QQ">QQ</span>    <a class="weibo" target="_blank" href="http://weibo.com/jailbreakc">微博</a></p>
 		</div>		
 	</div>
 
@@ -116,19 +114,19 @@
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="js/underscore.js"></script>
-	<script src="http://hihiblog.qiniudn.com/bower_components/underscore.string/dist/underscore.string.min.js"></script>
+	<script src="js/underscore.string.min.js"></script>
 	<script type="text/javascript" src="js/video.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/bigvideo.js"></script>
 	<script type="text/javascript" src="js/jquery.stellar.min.js"></script>
-	<script type="text/javascript" src="js/angular.js"></script>
-	<script src="http://hihiblog.qiniudn.com/bower_components/angular-route/angular-route.min.js"></script>
-	<script src="http://hihiblog.qiniudn.com/bower_components/angular-animate/angular-animate.min.js"></script>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script src="js/angular-route.js"></script>
+	<script src="js/angular-animate.min.js"></script>
 	<script type="text/javascript" src="js/markdown.js"></script>
 	<script type="text/javascript" src="js/controller.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+	
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-
 	<script>var duoshuoQuery = {short_name:"vgeemain"};</script>
 	<script src="http://static.duoshuo.com/embed.js"></script>
 	<script type="text/javascript">
@@ -143,6 +141,18 @@
 		})();
 	</script>
 	<!-- 多说公共JS代码 end -->
+
+	<!-- 百度统计代码-->
+	<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?802ff3a71c77c601268e152210d892d0";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    <!--end -->
 
 <!-- script 专用沙发 -->
 
