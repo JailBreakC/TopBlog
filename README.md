@@ -1,4 +1,4 @@
 TopBlog
 =======
 
-an amazing blog
+An amazing blog with AngularJS, Bootstrap and markdown.
