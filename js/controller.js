@@ -103,7 +103,7 @@
         flag = true;
       }
       if (flag) {
-        tail += '\n' + line + '\n';
+        tail += '\n' + line;
       } else {
         head += '\n' + line + '\n';
       }

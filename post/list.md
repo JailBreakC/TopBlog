@@ -1,3 +1,33 @@
+title:[转][面经]
+disc:已拿到阿里前端offer，发个面经。
+type:HTML&CSS
+url: 2014-11-11-alibabainterview.md
+-------
+title:如何编写高扩展且可维护的 JavaScript
+disc:如何编写高扩展且可维护的 JavaScript ：模块
+type:JavaScript
+url: 2014-11-05-javascript-module.md
+-------
+title:科大虚拟仿真实验中心
+disc:湖南科技大学虚拟仿真实验教学中心门户网
+type:项目经历
+url: 2014-11-04-vlab.md
+-------
+title:遇到下一个你
+disc:遇到下一个你，我会不会已经是打磨完毕的成品
+type:生活·life
+url: 2014-10-26-whenIMeetYou.md
+-------
+title:JCarousel.js
+disc:自己编写的原生JavaScript轮播插件
+type:JavaScript
+url: 2014-10-25-JCarousel.js.md
+-------
+title:让IE8兼容HTML5标签
+disc:介绍两种IE8兼容HTML5标签的方案
+type:HTML&CSS
+url: 2014-10-19-html5shiv.md
+-------
 title:Memoization
 disc:JavaScript实现记忆化方法
 type:JavaScript

@@ -53,11 +53,9 @@ parseTitle = (data) ->
     r.date = r.url.split('-')
     r.date.month = parseInt(r.date[1],10)
     r.date.day =  parseInt(r.date[2],10)
-    ##console.log r.time
     return r
 
 parseList = (data) ->
-    #console.log data
     #console.log data.split(/\n[\-=]+/)
     _.map data.split(/\n[\-=]+/),parseTitle
 
@@ -73,7 +71,7 @@ parsePost = (text) ->
         if /[\-=]+/.test(line)
             flag=true
         if flag
-            tail+= '\n'+line+'\n'
+            tail+= '\n'+line
         else
             head+= '\n'+line+'\n'
     post = parseTitle head
