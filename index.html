@@ -6,11 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta property="qc:admins" content="654143370766755636" />
   <meta name="description" content="陈加贝的个人博客————发现更大的世界">
-  <meta name="keywords" content="陈加贝,jailbreak,jailbreakc,vgee,vgee.cn,陈加贝jailbreak,javascript,html,css,科技,极客">
+  <meta name="keywords" content="陈加贝,jailbreak, jailbreakc, vgee, vgee.cn, 陈加贝jailbreak, javascript,html, css, 科技, 极客">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>JailBreak的博客-------陈加贝</title>
   <link rel="icon" href="images/title-logo.png" type="image/png" sizes="32x32">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="style/bootstrap.min.css">
+  <link rel="stylesheet" href="style/monokai_sublime.css">
   <link rel="stylesheet" href="style/main.css">
 
 </head>
@@ -30,12 +31,14 @@
 	      
 	    </div>
 
-
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav navbar-right">
 	        <li><a target="_blank" class="link-skewed" href="http://5.vgee.sinaapp.com">Blog 1.0</a></li>
 	        <li><a target="_blank" class="link-skewed" href="http://weibo.com/jailbreakc">微博</a></li>
+	        <!--<li><a target="_blank" class="link-skewed" href="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101169591&redirect_uri=http://www.vgee.cn&state: 200">登录</a></li>-->
+	        <li><a id="login" class="link-skewed">登录</a></li>
+
 	        
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
@@ -47,7 +50,7 @@
 	  </div>
 	<div class="head">
 		
-		<div style="margin-top: 355px;"class="head-container">
+		<div style="margin-top: 355px;" class="head-container">
 			
 			<h1><span  class="link-skewed">发现更大的世界</span></h1>
 			<h2><span class="link-skewed">前端工程师——我们不仅是码农，我们更是美的搬运工</span></h2>
@@ -65,7 +68,7 @@
 				<span class="link-skewed">jQuery </span>
 				<span class="link-skewed">AngularJS </span>
 				<span class="link-skewed">PHP </span>
-				<span class="link-skewed">python</span>
+				<span class="link-skewed">node.js</span>
 			</p>
 			<p><a class="link-skewed" target="_blank" href="https://github.com/JailBreakC/TopBlog">
 			fork me on GitHub</a></p>
@@ -73,7 +76,7 @@
 	</div>
 	<div class="main">
 		
-		<div style="margin-top:150px"class="container">
+		<div style="margin-top:150px" class="container">
 			<div class="row">
 				<div class="col-sm-4">
 					<div class="left-bar">
@@ -114,6 +117,7 @@
 
 <!-- script 专用沙发 -->
 	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script	type="text/javascript" src="js/require.min.js"></script>
 	<!--<script type="text/javascript" src="js/jquery-ui.min.js"></script>-->
 	<script type="text/javascript" src="js/underscore.js"></script>
 	<script type="text/javascript" src="js/underscore.string.min.js"></script>
@@ -124,9 +128,36 @@
 	<script type="text/javascript" src="js/angular.min.js"></script>
 	<script type="text/javascript" src="js/angular-route.js"></script>
 	<script type="text/javascript" src="js/angular-animate.min.js"></script>
-	<script type="text/javascript" src="js/markdown.js"></script>
+	<script type="text/javascript" src="js/marked.js"></script>
+	<script type="text/javascript" src="js/highlight.pack.js"></script>
 	<script type="text/javascript" src="js/controller.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101169591" charset="utf-8"></script>
+	<script type="text/javascript">
+		//调用QC.Login方法，指定btnId参数将按钮绑定在容器节点中
+		QC.Login({
+		   //btnId：插入按钮的节点id，必选
+		   btnId:"login",    
+		}, function(reqData, opts){//登录成功
+			   //根据返回数据，更换按钮显示状态方法
+			   var dom = document.getElementById(opts['btnId']),
+			   _logoutTemplate=[
+			        //头像
+			        '<span><img src="{figureurl}" class="{size_key}"/></span>',
+			        //昵称
+			        '<span>{nickname}</span>',
+			        //退出
+			        '<span><a style="padding:6px" onclick="QC.Login.signOut();">退出</a></span>'    
+			   ].join("");
+			   dom && (dom.innerHTML = QC.String.format(_logoutTemplate, {
+			       nickname : QC.String.escHTML(reqData.nickname), //做xss过滤
+			       figureurl : reqData.figureurl
+			   }));
+			}, function(opts){//注销成功
+			     console.log('QQ登录 注销成功');
+			}
+		);
+	</script>
 	
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script>var duoshuoQuery = {short_name:"vgeemain"};</script>

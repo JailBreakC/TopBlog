@@ -1,0 +1,40 @@
+body {
+    font-family: 'microsoft yahei';
+    color: rgb(71, 112, 175);
+    overflow-y: hidden;
+}
+.squre {
+    height: 300px;
+    width: 400px;
+    border: solid 2px rgb(7, 189, 255);
+    margin: auto;
+    background-color: #F1F1F1;
+    position: relative;
+}
+.snake {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(79, 146, 199);
+    left: 0;
+    top: 0;
+}
+#food {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(26, 83, 111);
+}
+.container {
+    text-align: center;
+    margin: auto;
+    width: 800px;
+}
+.score {
+    color: red;
+}
+.author{
+    text-decoration: none;
+    color: rgb(7, 189, 255);
+    font-weight: bold;
+}

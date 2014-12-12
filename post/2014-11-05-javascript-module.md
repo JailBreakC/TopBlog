@@ -11,7 +11,7 @@ type:JavaScript
 
 JavaScript 模块可以像 JavaScript 对象一样的简单，对象的原型就是功能上独立的单元，也就是函数。请注意没有闭包，这个模块实例可能会污染全局命名空间。
 
-实例：POJO 模块模式
+##实例：POJO 模块模式
 
     var myModule = {
         propertyEx: "This is a property on myModule",    
@@ -22,7 +22,7 @@ JavaScript 模块可以像 JavaScript 对象一样的简单，对象的原型就
 
 为了创建闭包，并且确保所有的变量和函数都是这个模块局部的，通常业内会用一个 IIFE（立即执行的函数表达式）包裹这个模块，这与前面提到的对象方法很类似。
 
-实例：Scoped 模块模式
+##实例：Scoped 模块模式
 
     var myModule = (function () { 
         var module;

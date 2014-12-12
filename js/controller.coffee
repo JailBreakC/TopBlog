@@ -2,18 +2,21 @@ window.myblogApp = angular.module('myblog',[
     "ngRoute"
     "ngAnimate"
 ])
-
 myblogApp.directive 'markdown', ->
     restrict:'EA'
     require: '?ngModel'
     link: (scope,element,attrs,ngModel) ->
         scope.$watch (->ngModel.$modelValue),(newValue) ->
-            element.html markdown.toHTML(if newValue then newValue else "#loading..." )
+            element.html marked(if newValue then newValue else "#loading...")
+            $(element).find('pre>code').each( (i, block)->
+                console.log block
+                hljs.highlightBlock(block)
+            )
 
 myblogApp.directive 'markdownlist', ->
     restrict:'EA'
     link: (scope,element,attrs)->
-        element.html markdown.toHTML element.text()
+        element.html marked element.text()
 
 myblogApp.config ($routeProvider, $locationProvider) ->
   $routeProvider.when("/",
@@ -84,8 +87,6 @@ postCtrl = ($scope,$http,$routeParams) ->
     $http.get('post/'+$scope.name).success (data)->
         $scope.post = parsePost(data)
         toggleDuoshuoComments('.blog-container')
-    #console.log $scope
-
     #多说
     `
     function toggleDuoshuoComments(container){
@@ -111,7 +112,7 @@ indexCtrl = ($scope,$http,$routeParams) ->
         #console.log data
         $scope.blogList = _.filter(parseList(data),(it)-> it.hide!='true')
         $scope.listType = _.uniq(_.pluck($scope.blogList,'type'))
-        console.log $scope.listType
+        #console.log $scope.listType
     Scroll2Top = ->
         window.scrollTo(0,$(window).height()*1.4)
     $('#fix-height').css('min-height',$(window).height())

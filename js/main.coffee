@@ -17,12 +17,6 @@ $ ->
         #stellar.js 视差滚动插件
         $.stellar();
 
-    #头像悬浮模糊效果
-    $('.mylm').hover (->
-        $(this).addClass("mylm-active") 
-    ), ->
-        $(this).removeClass("mylm-active")
-
     #当头像进入动画结束时进行上下抖动。。。但是现在这段代码只能在鼠标悬浮之后起作用
     $('.mylm').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', (e) ->
         $(this).addClass('an-updown')
@@ -139,7 +133,7 @@ $ ->
 
     positionSetter = new ScrollController()
 
-
+    #QQ登录
 
     (->        
         timer = 0 
