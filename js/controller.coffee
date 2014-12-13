@@ -2,30 +2,16 @@ window.myblogApp = angular.module('myblog',[
     "ngRoute"
     "ngAnimate"
 ])
-myblogApp.directive 'markdown', ->
-    restrict:'EA'
-    require: '?ngModel'
-    link: (scope,element,attrs,ngModel) ->
-        scope.$watch (->ngModel.$modelValue),(newValue) ->
-            element.html marked(if newValue then newValue else "#loading...")
-            $(element).find('pre>code').each( (i, block)->
-                console.log block
-                hljs.highlightBlock(block)
-            )
-
-myblogApp.directive 'markdownlist', ->
-    restrict:'EA'
-    link: (scope,element,attrs)->
-        element.html marked element.text()
 
 myblogApp.config ($routeProvider, $locationProvider) ->
-  $routeProvider.when("/",
-    templateUrl: "partials/list.html"
-  ).when("/type/:type", 
-    templateUrl: "partials/list.html"
-  ).when("/post/:name",
+    list = "<div class=\"main-bar\">" + "<div  ng-repeat=\"post in blogList | blogListType : type\" class=\"md\">" + "<div class=\"date\">" + "<p class=\"month\">{{post.date.month}}月</p>" + "<p class=\"day\">{{post.date.day}}</p>" + "</div>" + "<div class=\"md-context\">" + "<h1>{{post.title}}</h1>" + "<div class=\"shot-text\">" + "<p>{{post.disc}}</p>" + "</div>" + "</div>" + "<div class=\"md-foot\">" + "<a ng-click=\"Scroll2Top()\" ng-href=\"#/post/{{post.url}}\"><button class=\"pull-right btn btn-danger\">阅读全文</button></a>" + "</div>" + "</div>" + "</div>"
+    $routeProvider.when("/",
+    template: list
+    ).when("/type/:type",
+    template: list
+    ).when("/post/:name",
     templateUrl: "partials/page.html"
-  ).otherwise redirectTo: "/"
+    ).otherwise redirectTo: "/"
 
 myblogApp.filter 'blogListType', ->
     blogListType = (date,array) ->
@@ -39,6 +25,21 @@ myblogApp.filter 'blogListType', ->
             ##console.log output
             return output
         return date
+
+myblogApp.directive 'markdown', ->
+    restrict:'EA'
+    scope: {content: '=markdownContent'}
+    link: (scope, element, attrs) ->
+        scope.$watch (->scope.content), (newValue) ->
+            element.html marked(if newValue then newValue else "#loading...")
+            element.find('pre>code').each( (i, block)->
+                hljs.highlightBlock(block)
+            )
+
+myblogApp.directive 'markdownlist', ->
+    restrict: 'EA'
+    link: (scope,element,attrs)->
+        element.html marked element.text()
 
 parseTitle = (data) ->
     r = 
@@ -61,9 +62,6 @@ parseTitle = (data) ->
 parseList = (data) ->
     #console.log data.split(/\n[\-=]+/)
     _.map data.split(/\n[\-=]+/),parseTitle
-
-listCtrl = ($scope,$http) ->
-listCtrl.$inject = ['$scope', '$http']
 
 
 parsePost = (text) ->
@@ -88,32 +86,30 @@ postCtrl = ($scope,$http,$routeParams) ->
         $scope.post = parsePost(data)
         toggleDuoshuoComments('.blog-container')
     #多说
-    `
-    function toggleDuoshuoComments(container){
-        var el = document.createElement('div');//该div不需要设置class="ds-thread"
-        el.setAttribute('id', $scope.name);//必选参数
-        el.setAttribute('data-thread-key', $scope.post.title);//必选参数
-        el.setAttribute('data-url', $scope.name);//必选参数
-        //el.setAttribute('data-author-key', '作者的本地用户ID');//可选参数
-        //console.log(el)
-        DUOSHUO.EmbedThread(el);
-        //console.log(el)
-        jQuery(container).append(el); 
-        
-    }`
+    toggleDuoshuoComments = (container) ->
+        el = document.createElement('div') #该div不需要设置class="ds-thread"
+        el.setAttribute('id', $scope.name) #必选参数
+        el.setAttribute('data-thread-key', $scope.post.title) #必选参数
+        el.setAttribute('data-url', $scope.name) #必选参数
+        #el.setAttribute('data-author-key', '作者的本地用户ID');//可选参数
+        #console.log(el)
+        DUOSHUO.EmbedThread(el)
+        #console.log(el)
+        jQuery(container).append(el)
+
 
 postCtrl.$inject = ['$scope','$http','$routeParams']
 
 
 indexCtrl = ($scope,$http,$routeParams) ->
+
     $scope.type = $routeParams
     window.w = $scope
     $http.get("post/list.md").success (data) ->
-        #console.log data
+        console.log('indexCtrl')
         $scope.blogList = _.filter(parseList(data),(it)-> it.hide!='true')
         $scope.listType = _.uniq(_.pluck($scope.blogList,'type'))
-        #console.log $scope.listType
-    Scroll2Top = ->
+    $scope.Scroll2Top = ->
         window.scrollTo(0,$(window).height()*1.4)
     $('#fix-height').css('min-height',$(window).height())
 
@@ -122,6 +118,5 @@ indexCtrl = ($scope,$http,$routeParams) ->
 
 indexCtrl.$inject = ['$scope','$http','$routeParams']
 
-myblogApp.controller 'listCtrl',listCtrl
 myblogApp.controller 'postCtrl',postCtrl
 myblogApp.controller 'indexCtrl',indexCtrl

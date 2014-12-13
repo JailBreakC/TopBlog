@@ -3,7 +3,9 @@ $ ->
     BV = false
     if $(window).width() > 768
         #BV插件
-        setTimeout (->
+        img=new Image();
+        img.src='images/bk.jpg'
+        img.onload = ->
             BV = new $.BigVideo({
                 doLoop:true
                 container:$('.head')
@@ -12,7 +14,6 @@ $ ->
             videos = "http://topblog.qiniudn.com/exponent.mp4"
             #videos = "videos/exponent.mp4"
             BV.show(videos)
-        ),1000
 
         #stellar.js 视差滚动插件
         $.stellar();
