@@ -14,13 +14,14 @@ $ ->
             videos = "http://topblog.qiniudn.com/exponent.mp4"
             #videos = "videos/exponent.mp4"
             BV.show(videos)
+            $('.mylm').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', (e) ->
+                $(this).addClass('an-updown')
 
         #stellar.js 视差滚动插件
         $.stellar();
 
     #当头像进入动画结束时进行上下抖动。。。但是现在这段代码只能在鼠标悬浮之后起作用
-    $('.mylm').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', (e) ->
-        $(this).addClass('an-updown')
+
 
     $('.silder-list').on 'click','a', ->
         $thisA = $(this);

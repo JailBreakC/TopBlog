@@ -1,3 +1,8 @@
+title:html5QQClient
+disc:使用HTML5+ 开发的第三方手机QQ客户端
+type:项目经历
+url: 2014-12-30-html5plusQQClient.md
+-------
 title:[转][面经]
 disc:已拿到阿里前端offer，发个面经。
 type:HTML&CSS

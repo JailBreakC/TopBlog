@@ -14,13 +14,13 @@
         });
         BV.init();
         videos = "http://topblog.qiniudn.com/exponent.mp4";
-        return BV.show(videos);
+        BV.show(videos);
+        return $('.mylm').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {
+          return $(this).addClass('an-updown');
+        });
       };
       $.stellar();
     }
-    $('.mylm').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {
-      return $(this).addClass('an-updown');
-    });
     $('.silder-list').on('click', 'a', function() {
       var $thisA;
       $thisA = $(this);
