@@ -7,13 +7,11 @@
       img = new Image();
       img.src = 'images/bk.jpg';
       img.onload = function() {
-        var videos;
         BV = new $.BigVideo({
           doLoop: true,
           container: $('.head')
         });
         BV.init();
-        videos = "http://topblog.qiniudn.com/exponent.mp4";
         BV.show(videos);
         return $('.mylm').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(e) {
           return $(this).addClass('an-updown');

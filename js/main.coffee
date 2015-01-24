@@ -11,7 +11,7 @@ $ ->
                 container:$('.head')
             })
             BV.init()
-            videos = "http://topblog.qiniudn.com/exponent.mp4"
+            #videos = "http://topblog.qiniudn.com/exponent.mp4"
             #videos = "videos/exponent.mp4"
             BV.show(videos)
             $('.mylm').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', (e) ->
