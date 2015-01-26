@@ -69,16 +69,19 @@ myblogApp.directive 'lazyload', ->
 myblogApp.directive 'cover', ->
     restrict: 'EA'
     link: (scope, element, attrs) ->
-       window.onresize = ->
-           ew = element.width()
-           ww = $(window).width()
-           eh = element.height()
-           wh = $(window).height()
-           #按需放大
-           element.css('min-width', wh*ew/eh + 'px');
-           #居中
-           if(wh == eh)
+        cover = ->
+            ew = element.width()
+            ww = $(window).width()
+            eh = element.height()
+            wh = $(window).height()
+            #按需放大
+            element.css('min-width', wh*ew/eh + 'px');
+            #居中
+            if(wh == eh)
                 element.css('left', '-' + (ew-ww)/2 + 'px')
+        cover()
+        window.onresize = ->
+            cover()
 
 myblogApp.directive 'tracker', ->
     restrict: 'EA'

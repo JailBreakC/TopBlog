@@ -107,7 +107,8 @@
     return {
       restrict: 'EA',
       link: function(scope, element, attrs) {
-        return window.onresize = function() {
+        var cover;
+        cover = function() {
           var eh, ew, wh, ww;
           ew = element.width();
           ww = $(window).width();
@@ -117,6 +118,10 @@
           if (wh === eh) {
             return element.css('left', '-' + (ew - ww) / 2 + 'px');
           }
+        };
+        cover();
+        return window.onresize = function() {
+          return cover();
         };
       }
     };
