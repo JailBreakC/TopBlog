@@ -58,7 +58,6 @@ myblogApp.directive 'lazyload', ->
     restrict: 'EA'
     link: (scope, element, attrs) ->
         console.log attrs
-        debugger
         if $(window).width() > 768
             img=new Image();
             img.src='images/bk.jpg'
@@ -66,6 +65,20 @@ myblogApp.directive 'lazyload', ->
                 $('.mylm').one 'webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', (e) ->
                     $(this).addClass('an-updown')
                 element.attr('src', attrs.lazyload)
+
+myblogApp.directive 'cover', ->
+    restrict: 'EA'
+    link: (scope, element, attrs) ->
+       window.onresize = ->
+           ew = element.width()
+           ww = $(window).width()
+           eh = element.height()
+           wh = $(window).height()
+           #按需放大
+           element.css('min-width', wh*ew/eh + 'px');
+           #居中
+           if(wh == eh)
+                element.css('left', '-' + (ew-ww)/2 + 'px')
 
 myblogApp.directive 'tracker', ->
     restrict: 'EA'

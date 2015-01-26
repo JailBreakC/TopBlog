@@ -89,7 +89,6 @@
       link: function(scope, element, attrs) {
         var img;
         console.log(attrs);
-        debugger;
         if ($(window).width() > 768) {
           img = new Image();
           img.src = 'images/bk.jpg';
@@ -100,6 +99,25 @@
             return element.attr('src', attrs.lazyload);
           };
         }
+      }
+    };
+  });
+
+  myblogApp.directive('cover', function() {
+    return {
+      restrict: 'EA',
+      link: function(scope, element, attrs) {
+        return window.onresize = function() {
+          var eh, ew, wh, ww;
+          ew = element.width();
+          ww = $(window).width();
+          eh = element.height();
+          wh = $(window).height();
+          element.css('min-width', wh * ew / eh + 'px');
+          if (wh === eh) {
+            return element.css('left', '-' + (ew - ww) / 2 + 'px');
+          }
+        };
       }
     };
   });
