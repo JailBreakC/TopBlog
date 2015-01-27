@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-cn" ng-app="myblog" ng-controller="indexCtrl">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="qc:admins" content="654143370766755636" />
+  <meta name="description" content="陈加贝的个人博客————发现更大的世界">
+  <meta name="keywords" content="陈加贝,jailbreak, jailbreakc, vgee, vgee.cn, 陈加贝jailbreak, javascript, html, css, 科技, 极客">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>JailBreak的博客-------陈加贝</title>
+  <link rel="icon" href="images/title-logo.png" type="image/png" sizes="32x32">
+  <link rel="stylesheet" href="style/bootstrap.min.css">
+  <link rel="stylesheet" href="style/monokai_sublime.css">
+  <link rel="stylesheet" href="style/main.css">
+
+</head>
+<body>
+	<span class="sr-only">陈加贝的个人博客————发现更大的世界,欢迎光临我的博客，20岁在校大学生热爱Web，热爱前端，热爱生活</span>
+	<nav style="border-radius:0;" class="f-nav navbar navbar-default navbar-fixed-top f-nav-bg" role="navigation">
+	  <div class="f-nav-ct  container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">JailBreak</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav navbar-right">
+	        <li><a target="_blank" class="link-skewed" href="http://5.vgee.sinaapp.com">Blog 1.0</a></li>
+	        <li><a target="_blank" class="link-skewed" href="http://weibo.com/jailbreakc">微博</a></li>
+	        <li><a id="login" class="link-skewed">登录</a></li>
+
+	        
+	      </ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+	<!-- 头像所在处↓-->
+	  <div ng-click="pageScroll()" class="mylm mylm-in">
+		<span class="mylm-arr glyphicon glyphicon-chevron-up"></span>
+	  </div>
+	<div class="head">
+		<video id="bk-video" lazyload="http://topblog.qiniudn.com/exponent.mp4" width="100%" cover autoplay loop></video>
+		<!--todo 让视频实时居中，if (v.width > c.width) left = v.width/2 - c.width/2-->
+		<div class="head-container">
+			
+			<h1><span  class="link-skewed">发现更大的世界</span></h1>
+			<h2><span class="link-skewed">前端工程师——我们不仅是码农，我们更是美的搬运工</span></h2>
+			<p><span class="link-skewed">we are not just the coder, we are the porter of beauty</span></p>
+			<p><span class="link-skewed">「Front-end web developer」</span></p>
+		</div>
+	</div>
+	<div data-stellar-ratio="0.6" class="main-head">
+		<div class="aboutme">
+			<h1>JailBreak</h1>
+			<h3>20岁在校<a class="link-skewed" target="_blank" href="http://www.hnust.edu.cn">大学生</a>热爱Web，热爱前端，热爱生活</h3>
+			<p>熟悉技能：
+				<span class="link-skewed">CSS3 </span>
+				<span class="link-skewed">JavaScript</span>
+				<span class="link-skewed">jQuery </span>
+				<span class="link-skewed">AngularJS </span>
+				<span class="link-skewed">PHP </span>
+				<span class="link-skewed">node.js</span>
+			</p>
+			<p><a class="link-skewed" target="_blank" href="https://github.com/JailBreakC/TopBlog">
+			fork me on GitHub</a></p>
+		</div>
+	</div>
+	<div class="main">
+		
+		<div style="margin-top:150px" class="container">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="left-bar">
+							<div class="left-bar-top">
+							<a href="#">
+								<h1>我的博客</h1>
+								<h3>my blog</h3>
+							</a>
+							</div>
+						<ul tracker class="silder-list">
+							<a ng-click="scroll2Top($event.target)" href="#/">
+								<li class="active">
+									全部分类
+								</li>
+							</a>
+							<a ng-click="scroll2Top($event.target)" ng-repeat="type in listType" ng-href="#/type/{{type}}">
+								<li>
+										{{type}}
+								</li>
+							</a>
+							<div class="float-light">
+							</div>
+						</ul>
+					</div>
+				</div>
+				<div ng-view class="post-animate col-sm-8 right-bar fix-height">
+				</div>
+			</div>
+
+		</div>
+		<div class="foot-bar">
+			<h5>简约不是简单的删繁就简，而是在纷繁中建立秩序</h5>
+			<p><span ng-click="showQQ($event.target)" class="QQ">QQ</span>    <a class="weibo" target="_blank" href="http://weibo.com/jailbreakc">微博</a></p>
+		</div>		
+	</div>
+
+
+<!-- script 专用沙发 -->
+	<script type="text/javascript" src="js/lib/lib.min.js"></script>
+	<script type="text/javascript" src="js/controller.js"></script>
+	<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101169591" charset="utf-8"></script>
+	<script type="text/javascript">
+		//调用QC.Login方法，指定btnId参数将按钮绑定在容器节点中
+		QC.Login({
+		   //btnId：插入按钮的节点id，必选
+		   btnId:"login"
+		}, function(reqData, opts){//登录成功
+			   //根据返回数据，更换按钮显示状态方法
+			   var dom = document.getElementById(opts['btnId']),
+			   _logoutTemplate=[
+			        //头像
+			        '<span><img src="{figureurl}" class="{size_key}"/></span>',
+			        //昵称
+			        '<span>{nickname}</span>',
+			        //退出
+			        '<span><a style="padding:6px" onclick="QC.Login.signOut();">退出</a></span>'    
+			   ].join("");
+			   dom && (dom.innerHTML = QC.String.format(_logoutTemplate, {
+			       nickname : QC.String.escHTML(reqData.nickname), //做xss过滤
+			       figureurl : reqData.figureurl
+			   }));
+			}, function(opts){//注销成功
+			     console.log('QQ登录 注销成功');
+			}
+		);
+	</script>
+	
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script>var duoshuoQuery = {short_name:"vgeemain"};</script>
+	<script src="http://static.duoshuo.com/embed.js"></script>
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"vgeemain"};
+		(function() {
+			var ds = document.createElement('script');
+			ds.type = 'text/javascript';ds.async = true;
+			ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+			ds.charset = 'UTF-8';
+			(document.getElementsByTagName('head')[0] 
+			 || document.getElementsByTagName('body')[0]).appendChild(ds);
+		})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+
+	<!-- 百度统计代码-->
+	<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?802ff3a71c77c601268e152210d892d0";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    <!--end -->
+
+<!-- script 专用沙发 -->
+
+</body>
+</html>
