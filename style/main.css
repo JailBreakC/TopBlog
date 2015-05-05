@@ -39,7 +39,7 @@ body {
 }
 .head-container {
   position: absolute;
-  bottom: 280px;
+  bottom: 20%;
   left: 50%;
   margin-left: -348px;
   color: white;

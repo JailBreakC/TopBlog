@@ -8,6 +8,10 @@ $(function(){
             var start = 0;
             var key;
             score = 0;
+            //刷新排行榜
+            $.get('rank.php', function(data) {
+                updateRank(data );
+            })
             //删除已有蛇和食物
             $('.snake, #food').remove();
             clearInterval(handler);
@@ -38,6 +42,24 @@ $(function(){
         }
         return {init:init}
     };
+
+    var updateRank = function(data){
+        data = $.parseJSON(data);
+        var rank = $('.rank ol').html('');
+        for(i in data){
+            rank.append('<li>'+strencode(data[i].name)+'：'+strencode(parseInt(data[i].score)*50)+'</li>');
+        }
+    }
+
+    var strencode = function(str){
+       var div=document.createElement('div');
+       if(div.innerText){
+           div.innerText=str;
+       }else{
+           div.textContent=str;//Support firefox
+       }
+       return div.innerHTML;
+    }
 
     //生成食物
     var generateFood = function() {
@@ -86,7 +108,7 @@ $(function(){
             case 'down':{if(top === parentHeight - 20) top = 0; else top += eleWidth;}; break;
         }
             
-        //蛇头按方向前进
+        //蛇头按方向前进（增加新蛇头）
         $('.squre').append(newEle);
 
         newEle.css({'left': left + 'px', 'top': top + 'px'});
@@ -95,7 +117,7 @@ $(function(){
             $('#food').remove();
             //蛇头变成蛇身，清除id
             $this.removeAttr('id');
-            //迟到吃到东西加分！
+            //吃到东西加分！
             score++;
             $('.score').text(score*50);
             generateFood();
@@ -107,7 +129,14 @@ $(function(){
         //撞到自己就输了
         if(isHit(left, top)){
             $('.snake').css('background-color','red');
-            alert('菜B，就不行了！');
+            var name = prompt('输入你的名字：', '蛇精病');  
+            if(name && name.length < 40)
+                $.post('rank.php', {name:name, score: score}, function(data) {
+                    updateRank(data );
+                })
+            else if(name && name.length >=40){
+                alert('太长了对对身体不好，成绩作废！');
+            }
             init();
             return false;
         }

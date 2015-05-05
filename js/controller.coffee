@@ -79,6 +79,8 @@ myblogApp.directive 'cover', ->
             #居中
             if(wh == eh)
                 element.css('left', '-' + (ew-ww)/2 + 'px')
+            else
+                element.css('left', 0)
         cover()
         window.onresize = ->
             cover()

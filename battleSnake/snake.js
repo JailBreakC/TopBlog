@@ -1,5 +1,5 @@
 $(function(){
-    var init, direction, parentWidth, parentHeight, eleWidth, handler, score;
+    var init, AIHandle, direction, parentWidth, parentHeight, eleWidth, handler, score;
 
     //初始化游戏
     window.snake = function(speed) {
@@ -7,8 +7,11 @@ $(function(){
         var init = function() {
             var start = 0;
             var key;
-            var AIHandle;
             score = 0;
+            //刷新排行榜
+            $.get('rank.php', function(data) {
+                updateRank(data );
+            })
             //删除已有蛇、食物和子弹
             $('.snake, #food, .bullet, .monster').remove();
             $(window).unbind('keydown');
@@ -26,7 +29,6 @@ $(function(){
 
             generateFood();
             generateMonster();
-            AIHandle = monsterAI(speed);
 
             var move = function(){
                 if(start)
@@ -39,13 +41,25 @@ $(function(){
                 if(key === 32){
                     shoot(direction ,speed);
                 }
+                if(!start)
+                    AIHandle = monsterAI(speed);
                 start = 1;
+                if(key === 40 || key === 39 || key === 38 || key === 37 || key === 32)
+                    return false;
             });
 
             handler = setInterval(move, speed);
         }
         return {init:init}
     };
+
+    var updateRank = function(data){
+        data = $.parseJSON(data);
+        var rank = $('.rank ol').html('');
+        for(i in data){
+            rank.append('<li>'+strencode(data[i].name)+'：'+strencode(parseInt(data[i].score)*50)+'</li>');
+        }
+    }
 
     //生成食物
     var generateFood = function() {
@@ -74,7 +88,15 @@ $(function(){
         });
         return state;
     };
-
+    var strencode = function(str){
+       var div=document.createElement('div');
+       if(div.innerText){
+           div.innerText=str;
+       }else{
+           div.textContent=str;//Support firefox
+       }
+       return div.innerHTML;
+  }
     //移动位置 [dire]方向 [$this]蛇头元素
     var crawl = function(dire, $this) {
         var newEle = $this.clone(),
@@ -96,7 +118,6 @@ $(function(){
             
         //蛇头按方向前进
         $('.squre').append(newEle);
-
         newEle.css({'left': left + 'px', 'top': top + 'px'});
 
         if(checkFood(newEle)){
@@ -109,23 +130,31 @@ $(function(){
             //删除蛇尾巴
             $('.snake').eq(0).remove();
         }
-        //撞到自己就输了
+        //撞到自己或者怪物就输了
         if(isHit(left, top)){
             $('.snake').css('background-color','red');
-            alert('不服！我要再来！');
+            var name = prompt('输入你的名字：', '蛇精病');  
+            if(name && name.length < 40)
+                $.post('rank.php', {name:name, score: score}, function(data) {
+                    updateRank(data );
+                })
+            else if(name && name.length >=40){
+                alert('太长了对对身体不好，成绩作废！');
+            }
             init();
             return false;
         }
         //返回新蛇头元素
         return newEle;
     };
-
-    //增加蛇身节点构造函数。 [snake]初始蛇头元素
-    var addNode = function(ele) {
+    
+    //增加蛇身节点。 [$this]初始蛇头元素
+    var addNode = function(snake) {
         var oldDire = 0;
-        var $this = $(ele);
+        var $this = $(snake);
         //返回一个方法，增加蛇身节点。[dire]移动方向
         return function(dire){
+            //禁止直接反向掉头
             if((dire === 37 && oldDire === 39 || dire === 38 && oldDire === 40) ||
                 (dire === 39 && oldDire === 37 || dire === 40 && oldDire === 38) ||
                 (dire < 37 || dire > 40))
@@ -159,7 +188,7 @@ $(function(){
                 case 40:{if(top === parentHeight - 20) clean = 1; else top += eleWidth;}; break;
             }
             if(!clean){
-                $this.css({'left': left + 'px', 'top': top + 'px'});
+                $this.css({'left': left + 'px', 'top': top + 'px', 'display': 'block'});
                 if(isShooted(left, top)){
                     //消灭怪物加分！
                     score++;
@@ -180,7 +209,7 @@ $(function(){
         if($('.snake').length>1){
             $('.snake').eq(0).remove();
             var bullet = document.createElement('div');
-            $(bullet).addClass('bullet').appendTo('.squre');
+            $(bullet).addClass('bullet').css('display','none').appendTo('.squre');
             moveBullet(bullet, dire, speed);
         }
     }
@@ -197,6 +226,7 @@ $(function(){
     //怪物AI
     var monsterAI = function(speed) {
         var moving = function(){
+            $('.monster').unbind('each');
             $('.monster').each(function(index,ele){
                 var dire,
                     $this = $(ele),
@@ -237,7 +267,7 @@ $(function(){
                 $this.css({'left':mX + 'px', 'top': mY + 'px'});
             });
         }
-        return monsterHander = setInterval(moving, speed * 1.5);
+        return monsterHander = setInterval(moving, speed * 5);
     }
     //子弹击中
     var isShooted = function(x, y) {
