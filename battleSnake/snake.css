@@ -1,7 +1,6 @@
 body {
     font-family: 'microsoft yahei';
     color: rgb(71, 112, 175);
-    overflow-y: hidden;
 }
 .squre {
     height: 600px;
@@ -49,4 +48,20 @@ body {
     text-decoration: none;
     color: rgb(7, 189, 255);
     font-weight: bold;
+}
+.rank {
+    position: fixed;
+    top: 80px;
+    left: 57px;
+    border: solid 2px #07BDFF;
+    padding: 0 20px;
+    max-width: 12%;
+    
+}
+.rank li {
+    border-bottom: dashed 1px;
+}
+.rank h3{
+    text-align: center;
+    border-bottom: solid 1px;
 }
