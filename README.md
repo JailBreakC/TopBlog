@@ -54,30 +54,30 @@ PC、移动端分别开发两套页面，保证访问体验。
 
 - 首先当然是`bootstrap`。让开发省时省力，并且支持响应式布局。
 
-  ![bootstrap](http://vgee.sinaapp.com/post/img/bootstrap.jpg)
+  ![bootstrap](http://v2.vgee.cn/post/img/bootstrap.jpg)
 
 - 逛了一下淘宝UED，自习分析了一下这个页面的图片加载方式，白色的底，然后一张黄色的底慢慢silde下来，最后等到图片加载完成，再让图片慢慢silde下来，用的是CSS3。很酷炫,刚好可以研究一下图片缓慢加载方式①
 
-  ![taobaoude](http://vgee.sinaapp.com/post/img/taobaoued.jpg)
+  ![taobaoude](http://v2.vgee.cn/post/img/taobaoued.jpg)
 
 - 然后就是css3 blur效果，用来模拟ios7毛玻璃特效，非常酷炫，这个得考虑一下加在哪里②
 
-  ![blur](http://vgee.sinaapp.com/post/img/blur.jpg)
+  ![blur](http://v2.vgee.cn/post/img/blur.jpg)
 
 - 高亮字体动画，深深的吸引了我啊，简直欲罢不能。字体颜色渐变，框颜色渐变，框形状渐变，又是CSS3③
 
-  ![highlight](http://vgee.sinaapp.com/post/img/highlight.png)
+  ![highlight](http://v2.vgee.cn/post/img/highlight.png)
 
 - 神器`BigVideo.js`视频背景，制作视频动态背景，又是狂拽酷炫，搭配七牛CDN打造速度与效果的完美结合。④
 
-  ![bigvideo](http://vgee.sinaapp.com/post/img/bigvideo.jpg)
+  ![bigvideo](http://v2.vgee.cn/post/img/bigvideo.jpg)
 
 - 视差滚动也在考虑的范围，目前找到一个比较好的插件 `Stellar.js`！⑤
 
-  ![stellarjs](http://vgee.sinaapp.com/post/img/stellarjs.jpg)
+  ![stellarjs](http://v2.vgee.cn/post/img/stellarjs.jpg)
 
 -------------------
 
 ##博客1.0 2014-4-11
 
-地址 [5.vgee.sinaapp.com](http://5.vgee.sinaapp.com)
+地址 [5.v2.vgee.cn](http://5.v2.vgee.cn)

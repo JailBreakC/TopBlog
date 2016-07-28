@@ -33,13 +33,13 @@ webview的方法，将动画效果交给原生去实现，那情况就会好很�
 然后再通过HTML5plus提供的各种原生API接口，似乎使用javascript就能
 在手机上无所不能了。
 
-![html+](http://vgee.sinaapp.com/post/img/html5plus.jpg)
+![html+](http://v2.vgee.cn/post/img/html5plus.jpg)
 
 把 [mui的文档](http://dcloudio.github.io/mui/) 翻看了一遍，然后就开始着手写这个APP
 
 首先是仿照微信做一个选项卡界面。
 
-![mainPage](http://vgee.sinaapp.com/post/img/html5QQClient4.jpg)。
+![mainPage](http://v2.vgee.cn/post/img/html5QQClient4.jpg)。
 
 这个界面用了5个webview, 主webview是上标题栏和底栏。中间是空白的。
 
@@ -83,11 +83,11 @@ html5+给我们提供的方法就是事件。我们可以用向不同的webview�
 
 再看一下其他的几个界面的效果
 
-![mainPage](http://vgee.sinaapp.com/post/img/html5QQClient1.jpg)
+![mainPage](http://v2.vgee.cn/post/img/html5QQClient1.jpg)
 
-![mainPage](http://vgee.sinaapp.com/post/img/html5QQClient2.jpg)
+![mainPage](http://v2.vgee.cn/post/img/html5QQClient2.jpg)
 
-![mainPage](http://vgee.sinaapp.com/post/img/html5QQClient3.jpg)
+![mainPage](http://v2.vgee.cn/post/img/html5QQClient3.jpg)
 
 这个聊天对话界面用了点小技巧。
 
